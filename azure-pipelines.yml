@@ -2,7 +2,7 @@ trigger:
 - main  # Change to your branch name if not 'main'
 
 pool:
-  name: LocalPool   # Self-hosted pool name
+  name: MMK   # Self-hosted pool name
   demands:
     - agent.name -equals MyLocalAgent
 
