@@ -4,7 +4,7 @@ trigger:
 pool:
   name: MMK   # Self-hosted pool name
   demands:
-    - agent.name -equals MyLocalAgent
+    - agent.name -equals MMK
 
 steps:
 - task: Maven@4
