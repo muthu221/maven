@@ -1,25 +1,26 @@
+
 trigger:
-- main  # Change to your branch name if not 'main'
+- main
 
 pool:
-  name: maven_ool   # Self-hosted pool name
-  demands:
-    - agent.name -equals muthu
+  vmImage: 'ubuntu-latest'
 
 steps:
+- checkout: self
+
+# Run Maven build & tests
 - task: Maven@4
   inputs:
-    mavenPomFile: 'my-app/pom.xml'
-    goals: 'clean install'
-    javaHomeOption: 'Path'
-    jdkDirectory: 'C:/Program Files/Java/jdk-17.0.2'
-    mavenVersionOption: 'Default'	
+    mavenPomFile: 'BMI-Calculator/pom.xml'
+    goals: 'package'
+    mavenVersionOption: 'Default'
+    publishJUnitResults: true
+    testResultsFiles: '**/surefire-reports/TEST-*.xml'
 
-
-# Publish JAR as artifact
+# Publish build artifacts
 - task: PublishPipelineArtifact@1
   displayName: 'Publish build artifact'
   inputs:
-    targetPath: '$(System.DefaultWorkingDirectory)/my-app/target'
+    targetPath: '$(System.DefaultWorkingDirectory)/BMI-Calculator/target'
     artifact: 'maven-build'
     publishLocation: 'pipeline'
