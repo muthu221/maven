@@ -2,9 +2,9 @@ trigger:
 - main  # Change to your branch name if not 'main'
 
 pool:
-  name: MMK   # Self-hosted pool name
+  name: maven_ool   # Self-hosted pool name
   demands:
-    - agent.name -equals MMK
+    - agent.name -equals muthu
 
 steps:
 - task: Maven@4
