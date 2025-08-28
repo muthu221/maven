@@ -11,7 +11,7 @@ steps:
 # Run Maven build & tests
 - task: Maven@4
   inputs:
-    mavenPomFile: 'BMI-Calculator/pom.xml'
+    mavenPomFile: 'pom.xml'
     goals: 'package'
     mavenVersionOption: 'Default'
     publishJUnitResults: true
@@ -21,6 +21,6 @@ steps:
 - task: PublishPipelineArtifact@1
   displayName: 'Publish build artifact'
   inputs:
-    targetPath: '$(System.DefaultWorkingDirectory)/BMI-Calculator/target'
+    targetPath: '$(System.DefaultWorkingDirectory)/target'
     artifact: 'maven-build'
     publishLocation: 'pipeline'
