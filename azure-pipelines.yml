@@ -1,26 +1,37 @@
 
 trigger:
-- main
+- main  # Change to your branch name if not 'main'
 
 pool:
-  vmImage: 'ubuntu-latest'
+  name: LocalPool   # Self-hosted pool name
+  demands:
+    - agent.name -equals MyLocalAgent
 
+#steps:
+#- task: Maven@4
+#  inputs:
+#    mavenPomFile: 'pom.xml'
+#    goals: 'clean test'              # Run regression tests
+#    javaHomeOption: 'Path'
+#    jdkDirectory: 'C:/Program Files/Java/jdk-17.0.2'
+#    mavenVersionOption: 'Default'
+#    publishJUnitResults: true        # Publish regression test results
+
+#For build pipeline and publish artifact
 steps:
-- checkout: self
-
-# Run Maven build & tests
 - task: Maven@4
   inputs:
-    mavenPomFile: 'pom.xml'
-    goals: 'package'
+    mavenPomFile: 'my-app/pom.xml'
+    goals: 'clean install'
+    javaHomeOption: 'Path'
+    jdkDirectory: 'C:/Program Files/Java/jdk-17.0.2'
     mavenVersionOption: 'Default'
-    publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
 
-# Publish build artifacts
+
+# Publish JAR as artifact
 - task: PublishPipelineArtifact@1
   displayName: 'Publish build artifact'
   inputs:
-    targetPath: '$(System.DefaultWorkingDirectory)/target'
+    targetPath: '$(System.DefaultWorkingDirectory)/my-app/target'
     artifact: 'maven-build'
     publishLocation: 'pipeline'
