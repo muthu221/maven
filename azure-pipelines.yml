@@ -3,9 +3,9 @@ trigger:
 - main  # Change to your branch name if not 'main'
 
 pool:
-  name: LocalPool   # Self-hosted pool name
+  name:  model_pool  # Self-hosted pool name
   demands:
-    - agent.name -equals MyLocalAgent
+    - agent.name -equals model_agent
 
 #steps:
 #- task: Maven@4
